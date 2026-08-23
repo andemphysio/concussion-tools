@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="CISG-approved modified SCAT6 symptoms-list adaptation, Version 2.5." />
+    <title>SCAT6 Symptoms List 2.5</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style id="print-page-style">@page { size: portrait; margin: 15mm 10mm; }</style>
+  </head>
+  <body>
+    <main class="form-shell">
+      <header class="title-bar">
+        <h1>Modified SCAT-6 Symptoms List</h1>
+        <span class="version-label">Version 2.5</span>
+      </header>
+
+      <form id="symptom-form">
+        <section class="examiner-section">
+          <div class="patient-details">
+            <label class="patient-name">
+              <span>Patient name / Identifier</span>
+              <input type="text" name="patient-name" autocomplete="name" />
+            </label>
+            <label>
+              <span>Injury date:</span>
+              <input type="date" id="injury-date" name="injury-date" />
+            </label>
+            <label>
+              <span>Date:</span>
+              <input type="date" id="completion-date" name="completion-date" />
+            </label>
+            <div class="days-elapsed">
+              <span>Days since injury:</span>
+              <output id="days-since-injury" aria-live="polite">—</output>
+            </div>
+          </div>
+          <p id="date-message" class="date-message" aria-live="polite"></p>
+          <div class="evaluation-details">
+            <label class="check-label">
+              <span>Baseline:</span>
+              <input type="radio" name="evaluation-type" value="baseline" />
+            </label>
+            <label class="check-label">
+              <span>Suspected/Post-injury:</span>
+              <input type="radio" name="evaluation-type" value="post-injury" />
+            </label>
+          </div>
+
+          <div id="post-injury-options" class="post-injury-options" hidden>
+            <div class="mode-options" role="group" aria-labelledby="post-injury-mode-label">
+              <strong id="post-injury-mode-label" class="mode-options-label">Post-injury assessment mode</strong>
+              <label>
+                <input type="radio" name="post-injury-mode" value="diagnostic" />
+                <span>Diagnostic</span>
+              </label>
+              <label>
+                <input type="radio" name="post-injury-mode" value="monitoring" />
+                <span>Monitoring</span>
+              </label>
+              <label class="combined-mode-option">
+                <input type="radio" name="post-injury-mode" value="combined" />
+                <span>Diagnostic + Monitoring</span>
+              </label>
+            </div>
+
+            <div class="assessment-settings-grid">
+              <div class="assessment-settings-panel diagnostic-settings">
+                <div
+                  id="diagnostic-period-options"
+                  class="settings-row period-options"
+                  role="group"
+                  aria-labelledby="diagnostic-period-label"
+                  hidden
+                >
+                  <strong id="diagnostic-period-label" class="settings-row-label">Diagnostic time from injury</strong>
+                  <div class="settings-options">
+                    <label><input type="radio" name="diagnostic-period" value="now" /> Now</label>
+                    <label><input type="radio" name="diagnostic-period" value="within 24 hours" /> Within 24 hours</label>
+                    <label><input type="radio" name="diagnostic-period" value="48 hours" /> 48 hours</label>
+                    <label><input type="radio" name="diagnostic-period" value="72 hours" checked /> 72 hours</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="assessment-settings-panel monitoring-settings">
+                <div
+                  id="monitoring-period-options"
+                  class="settings-row period-options"
+                  role="group"
+                  aria-labelledby="monitoring-period-label"
+                  hidden
+                >
+                  <strong id="monitoring-period-label" class="settings-row-label">Monitoring time period</strong>
+                  <div class="settings-options">
+                    <label><input type="radio" name="monitoring-period" value="now" /> Now</label>
+                    <label><input type="radio" name="monitoring-period" value="last 24 hours" /> Last 24 hours</label>
+                    <label><input type="radio" name="monitoring-period" value="last 48 hours" checked /> Last 48 hours</label>
+                    <label><input type="radio" name="monitoring-period" value="last 72 hours" /> Last 72 hours</label>
+                    <label><input type="radio" name="monitoring-period" value="last week" /> Last week</label>
+                    <label><input type="radio" name="monitoring-period" value="last 2 weeks" /> Last 2 weeks</label>
+                  </div>
+                </div>
+
+                <div
+                  id="symptom-context-options"
+                  class="settings-row symptom-context-options"
+                  role="group"
+                  aria-labelledby="symptom-context-label"
+                  hidden
+                >
+                  <strong id="symptom-context-label" class="settings-row-label">
+                    Monitoring symptom context <span>(optional)</span>
+                  </strong>
+                  <div class="settings-options">
+                    <label><input type="radio" name="symptom-context" value="not selected" checked /> Not selected</label>
+                    <label><input type="radio" name="symptom-context" value="typically" /> Typically</label>
+                    <label><input type="radio" name="symptom-context" value="at rest" /> At rest</label>
+                    <label>
+                      <input type="radio" name="symptom-context" value="during/after exercise" />
+                      During/after exercise
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="evaluation-instructions" aria-live="polite">
+            <p id="baseline-instruction" class="instruction" hidden>
+              <strong>Say:</strong>
+              <em>“Please rate your symptoms below based on how you <u>typically</u> feel with “1” representing a very mild symptom and “6” representing a severe symptom.”</em>
+            </p>
+            <p id="post-injury-instruction" class="instruction" hidden>
+              <strong>Say:</strong>
+              <em id="post-injury-instruction-text">Select Diagnostic or Monitoring to show the appropriate instruction.</em>
+            </p>
+            <div id="combined-instructions" class="combined-instructions" hidden>
+              <p class="instruction diagnostic-instruction">
+                <strong>Say:</strong>
+                <em id="combined-diagnostic-instruction-text"></em>
+              </p>
+              <p class="instruction monitoring-instruction">
+                <strong>Say:</strong>
+                <em id="combined-monitoring-instruction-text"></em>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <h2 class="handover">PLEASE HAND THE FORM TO THE ATHLETE</h2>
+
+        <section class="athlete-section">
+          <div class="symptom-table-wrap">
+            <table class="symptom-table">
+              <thead>
+                <tr>
+                  <th>Symptom</th>
+                  <th id="primary-rating-heading">Rating</th>
+                  <th id="monitoring-rating-heading" class="monitoring-rating-column" hidden>Monitoring</th>
+                </tr>
+              </thead>
+              <tbody id="symptom-rows"></tbody>
+            </table>
+          </div>
+
+          <aside class="follow-up">
+            <fieldset class="yes-no-question">
+              <legend>Do your symptoms get worse with physical activity?</legend>
+              <label><input type="radio" name="physical-activity" value="yes" /> Y</label>
+              <label><input type="radio" name="physical-activity" value="no" /> N</label>
+            </fieldset>
+
+            <fieldset class="yes-no-question">
+              <legend>Do your symptoms get worse with mental activity?</legend>
+              <label><input type="radio" name="mental-activity" value="yes" /> Y</label>
+              <label><input type="radio" name="mental-activity" value="no" /> N</label>
+            </fieldset>
+
+            <p id="activity-symptom-hint" class="activity-symptom-hint" aria-live="polite" hidden></p>
+
+            <label class="text-question">
+              <span>If 100% is feeling perfectly normal, what percent of normal do you feel?</span>
+              <div class="percent-input">
+                <input type="number" name="percent-normal" min="0" max="100" aria-label="Percent of normal" />
+                <span>%</span>
+              </div>
+            </label>
+
+            <label class="text-question">
+              <span>If not 100%, why?</span>
+              <textarea name="not-normal-reason" aria-label="Reason you do not feel 100 percent normal"></textarea>
+            </label>
+          </aside>
+        </section>
+
+        <h2 class="handover bottom-handover">PLEASE HAND THE FORM BACK TO THE EXAMINER</h2>
+
+        <section class="examiner-footer">
+          <p class="examiner-guidance">
+            Once the athlete has completed answering all symptom items, it may be useful for the clinician
+            to revisit items that were endorsed positively to gather more detail about each symptom.
+          </p>
+          <div id="single-totals" class="totals">
+            <p>Total number of symptoms: <output id="symptom-count">0</output> <span>of 22</span></p>
+            <p>Symptom severity score: <output id="severity-score">0</output> <span>of 132</span></p>
+          </div>
+          <div id="combined-totals" class="combined-totals" hidden>
+            <div class="diagnostic-total-group">
+              <strong>Diagnostic</strong>
+              <span class="combined-total-metric">
+                Total symptoms: <output id="diagnostic-symptom-count">0</output> <span>of 22</span>
+              </span>
+              <span class="combined-total-metric">
+                Severity score: <output id="diagnostic-severity-score">0</output> <span>of 132</span>
+              </span>
+            </div>
+            <div class="monitoring-total-group">
+              <strong>Monitoring</strong>
+              <span class="combined-total-metric">
+                Total symptoms: <output id="monitoring-symptom-count">0</output> <span>of 22</span>
+              </span>
+              <span class="combined-total-metric">
+                Severity score: <output id="monitoring-severity-score">0</output> <span>of 132</span>
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <section class="summary-section">
+          <div class="summary-heading">
+            <div>
+              <h2>Key findings summary</h2>
+              <p>Live summary for copying into clinical notes.</p>
+            </div>
+            <button type="button" id="copy-summary-button">Copy summary</button>
+          </div>
+          <textarea id="summary-text" readonly aria-label="Key findings summary"></textarea>
+          <p id="copy-summary-status" class="copy-summary-status" aria-live="polite"></p>
+          <pre id="summary-print-content" class="summary-print-content" aria-hidden="true"></pre>
+        </section>
+
+        <div class="actions">
+          <button type="button" id="undo-button" class="history-button" aria-label="Undo" title="Undo" disabled>
+            <span aria-hidden="true">↶</span>
+          </button>
+          <button type="button" id="redo-button" class="history-button" aria-label="Redo" title="Redo" disabled>
+            <span aria-hidden="true">↷</span>
+          </button>
+          <button type="reset">Clear form</button>
+          <label class="print-orientation">
+            <span>Print orientation</span>
+            <select id="print-orientation" aria-label="Print orientation">
+              <option value="portrait" selected>Portrait</option>
+              <option value="landscape">Landscape</option>
+            </select>
+          </label>
+          <label class="include-summary-option">
+            <input type="checkbox" id="include-summary-print" />
+            <span>Include summary in print / save</span>
+          </label>
+          <button type="button" id="print-button">Save / Print</button>
+        </div>
+      </form>
+    </main>
+
+    <footer class="publication-notice">
+      <p>
+        <a href="https://www.concussioninsportgroup.com/" target="_blank" rel="noopener noreferrer">CISG</a>-approved
+        SCAT6™ symptoms-list adaptations
+        <span aria-hidden="true">|</span>
+        By
+        <a
+          href="https://uk.linkedin.com/in/andrea-de-marchi-777423305"
+          target="_blank"
+          rel="noopener noreferrer"
+        >A De Marchi</a>
+        <span aria-hidden="true">|</span>
+        <a
+          href="https://github.com/andemphysio/concussion-tools"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Code</a>
+        open source
+        <a
+          href="https://github.com/andemphysio/concussion-tools/blob/main/LICENSE"
+          target="_blank"
+          rel="noopener noreferrer"
+        >MIT</a>
+        <span aria-hidden="true">|</span>
+        SCAT6 content is owned by CISG-BMJ
+      </p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>

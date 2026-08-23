@@ -1,0 +1,1293 @@
+:root {
+  --purple: #353181;
+  --ink: #252a40;
+  --blue: #2879bd;
+  --field: #dce7f5;
+  --white: #fff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+body {
+  margin: 0;
+  padding: 12px;
+  background: #eef1f6;
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.form-shell {
+  width: min(1500px, 100%);
+  margin: 0 auto;
+  background: var(--white);
+  border: 3px solid var(--purple);
+}
+
+.publication-notice {
+  width: min(1500px, 100%);
+  margin: 0 auto 12px;
+  padding: 12px 18px;
+  background: var(--purple);
+  color: var(--white);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.publication-notice p {
+  margin: 0;
+}
+
+.publication-notice span {
+  margin-inline: 0.45em;
+}
+
+.publication-notice a {
+  color: inherit;
+  font-weight: 700;
+}
+
+.title-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 22px;
+  background: var(--purple);
+  color: var(--white);
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.version-label {
+  flex-shrink: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.examiner-section,
+.examiner-footer {
+  padding: 16px 22px 0;
+}
+
+.patient-details {
+  display: grid;
+  grid-template-columns: minmax(250px, 2fr) repeat(3, minmax(170px, 1fr));
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.patient-details label,
+.days-elapsed {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.patient-details input,
+.days-elapsed output {
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 10px;
+  border: 2px solid transparent;
+  background: var(--field);
+  color: var(--ink);
+  font: inherit;
+}
+
+.patient-details input:focus {
+  border-color: var(--purple);
+  outline: 0;
+}
+
+.days-elapsed output {
+  display: grid;
+  place-items: center;
+  color: var(--purple);
+  font-size: 1.15rem;
+}
+
+.date-message {
+  min-height: 1.2em;
+  margin: -8px 0 12px !important;
+  color: #a22929;
+  font-size: 0.95rem !important;
+  font-weight: 700;
+}
+
+.evaluation-details {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.post-injury-options {
+  margin-top: 16px;
+  padding: 10px;
+  border: 2px solid var(--purple);
+  background: #f7f8fc;
+}
+
+.post-injury-options[hidden],
+.symptom-context-options[hidden],
+.period-options[hidden] {
+  display: none;
+}
+
+.mode-options {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.mode-options-label {
+  flex: 0 0 230px;
+  margin: 0;
+  color: var(--purple);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.mode-options label,
+.settings-options label {
+  display: flex;
+  min-height: 36px;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+  padding: 6px 9px;
+  border: 1px solid var(--purple);
+  background: var(--white);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.mode-options label {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.mode-options label:has(input:checked) {
+  background: var(--purple);
+  color: var(--white);
+}
+
+.settings-options label {
+  border-color: var(--settings-accent, var(--purple));
+}
+
+.settings-options label:has(input:checked) {
+  background: var(--settings-accent, var(--purple));
+  color: var(--white);
+}
+
+.post-injury-options input[type="radio"] {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+}
+
+.assessment-settings-grid {
+  display: grid;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.assessment-settings-panel {
+  display: contents;
+}
+
+.settings-row {
+  --settings-accent: #365b8c;
+  display: grid;
+  grid-template-columns: minmax(190px, 230px) minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  padding: 7px 9px;
+  border-left: 4px solid;
+}
+
+.diagnostic-settings .settings-row {
+  border-color: var(--settings-accent);
+  background: #edf3fa;
+}
+
+.monitoring-settings .settings-row {
+  border-color: var(--settings-accent);
+  background: #edf3fa;
+}
+
+body.combined-assessment .monitoring-settings .settings-row {
+  --settings-accent: #8d4774;
+  background: #faf0f6;
+}
+
+.settings-row-label {
+  color: var(--settings-accent);
+  font-size: 0.88rem;
+  line-height: 1.15;
+}
+
+.settings-row-label span {
+  font-weight: 400;
+}
+
+.settings-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
+  gap: 5px;
+}
+
+.diagnostic-settings .settings-options {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.monitoring-settings .period-options .settings-options {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.monitoring-settings .symptom-context-options .settings-options {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.check-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+input[type="radio"] {
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  accent-color: var(--purple);
+  cursor: pointer;
+}
+
+.check-label input {
+  appearance: none;
+  width: 42px;
+  height: 42px;
+  border: 3px solid var(--purple);
+  background: var(--field);
+}
+
+.check-label input:checked::after {
+  content: "✓";
+  display: grid;
+  height: 100%;
+  place-items: center;
+  color: var(--purple);
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.percent-input,
+textarea,
+output {
+  border: 0;
+  background: var(--field);
+}
+
+.examiner-section p,
+.examiner-footer p {
+  margin: 12px 0;
+  font-size: 1.15rem;
+  line-height: 1.25;
+}
+
+.examiner-section em {
+  color: var(--blue);
+  font-weight: 700;
+}
+
+.evaluation-instructions {
+  min-height: 58px;
+}
+
+.evaluation-details:has(input[name="evaluation-type"][value="baseline"]:checked)
+  ~ .evaluation-instructions {
+  padding-top: 8px;
+}
+
+.instruction[hidden] {
+  display: none;
+}
+
+.handover {
+  margin: 18px 10px 24px;
+  text-align: center;
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+}
+
+.athlete-section {
+  display: grid;
+  grid-template-columns: minmax(570px, 1fr) minmax(420px, 1fr);
+  gap: 8%;
+  padding: 0 26px;
+  align-items: start;
+}
+
+.symptom-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 4px;
+}
+
+.symptom-table th {
+  padding: 8px;
+  background: var(--purple);
+  color: var(--white);
+  font-size: 1.25rem;
+}
+
+.symptom-table th:first-child {
+  width: 60%;
+  border-right: 4px solid var(--white);
+}
+
+.monitoring-rating-column {
+  border-left: 4px solid var(--white);
+}
+
+body.combined-assessment #primary-rating-heading {
+  background: #365b8c;
+}
+
+#monitoring-rating-heading {
+  background: #8d4774;
+}
+
+body.combined-assessment .rating-label:not(.monitoring-rating-label):has(input:checked) {
+  background: #365b8c;
+}
+
+body.combined-assessment .monitoring-rating-label:has(input:checked) {
+  background: #8d4774;
+}
+
+.symptom-table td {
+  background: var(--field);
+}
+
+.symptom-name {
+  padding: 7px 10px;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.symptom-name-content {
+  display: flex;
+  min-height: 22px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.activity-symptom-selectors {
+  display: flex;
+  flex-shrink: 0;
+  gap: 3px;
+}
+
+.activity-symptom-toggle {
+  position: relative;
+  display: grid;
+  width: 24px;
+  height: 24px;
+  border: 2px solid currentColor;
+  border-radius: 3px;
+  place-items: center;
+  background: var(--white);
+  cursor: pointer;
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.activity-symptom-toggle[hidden] {
+  display: none;
+}
+
+.activity-symptom-toggle input {
+  position: absolute;
+  opacity: 0;
+}
+
+.physical-toggle {
+  --activity-color: #126a92;
+  color: var(--activity-color);
+}
+
+.mental-toggle {
+  --activity-color: #9b3c72;
+  color: var(--activity-color);
+}
+
+.activity-symptom-toggle:has(input:checked) {
+  background: currentColor;
+}
+
+.activity-symptom-toggle:has(input:checked) > span[aria-hidden="true"] {
+  color: var(--white);
+}
+
+.activity-symptom-toggle:focus-within {
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
+}
+
+.activity-hint-badge {
+  display: inline-grid;
+  width: 24px;
+  height: 24px;
+  margin-inline: 2px;
+  border: 2px solid var(--activity-color);
+  border-radius: 3px;
+  place-items: center;
+  background: var(--activity-color);
+  color: var(--white);
+  font-size: 0.75rem;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+.ratings {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  min-width: 255px;
+}
+
+.rating-label {
+  position: relative;
+  display: grid;
+  min-height: 36px;
+  place-items: center;
+  cursor: pointer;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.rating-label input {
+  position: absolute;
+  opacity: 0;
+}
+
+.rating-label:has(input:checked) {
+  background: var(--purple);
+  color: var(--white);
+  outline: 2px solid var(--white);
+  outline-offset: -3px;
+}
+
+.rating-label:has(input[value="0"]:checked) {
+  background: #84bfe7;
+  color: var(--ink);
+}
+
+body.combined-assessment .rating-label:has(input[value="0"]:checked) {
+  background: #84bfe7;
+  color: var(--ink);
+}
+
+.rating-label:focus-within {
+  outline: 3px solid var(--blue);
+  outline-offset: -3px;
+}
+
+.follow-up {
+  padding-top: 50px;
+}
+
+.yes-no-question {
+  display: grid;
+  grid-template-columns: 1fr 52px 52px;
+  margin: 0 0 4px;
+  padding: 0;
+  border: 0;
+  background: var(--field);
+}
+
+.yes-no-question legend {
+  display: contents;
+}
+
+.yes-no-question legend,
+.yes-no-question label {
+  padding: 12px 10px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.yes-no-question label {
+  display: flex;
+  justify-content: center;
+  border-left: 4px solid var(--white);
+  cursor: pointer;
+}
+
+.yes-no-question input {
+  position: absolute;
+  opacity: 0;
+}
+
+.yes-no-question label:has(input:checked) {
+  background: var(--purple);
+  color: var(--white);
+}
+
+.activity-symptom-hint {
+  margin: 8px 0 0;
+  padding: 8px 10px;
+  border-left: 4px solid var(--blue);
+  background: #edf6fc;
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.activity-symptom-hint[hidden] {
+  display: none;
+}
+
+.text-question {
+  display: block;
+  margin-top: 24px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.text-question > span {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.percent-input {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+}
+
+.percent-input input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 0;
+  outline-color: var(--purple);
+  background: transparent;
+  font: inherit;
+}
+
+.percent-input span {
+  padding-right: 12px;
+}
+
+textarea {
+  width: 100%;
+  height: 235px;
+  padding: 12px;
+  resize: vertical;
+  font: inherit;
+  outline-color: var(--purple);
+}
+
+.bottom-handover {
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+.combined-instructions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+}
+
+.combined-instructions[hidden] {
+  display: none;
+}
+
+.combined-instructions .instruction {
+  padding: 10px;
+  border-left: 4px solid;
+}
+
+.diagnostic-instruction,
+.diagnostic-total-group {
+  border-color: #365b8c !important;
+  background: #edf3fa;
+}
+
+.monitoring-instruction,
+.monitoring-total-group {
+  border-color: #8d4774 !important;
+  background: #faf0f6;
+}
+
+.combined-totals {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.combined-totals[hidden] {
+  display: none;
+}
+
+.combined-totals > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-left: 4px solid;
+  font-weight: 700;
+}
+
+.combined-total-metric {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 5px;
+  padding-left: 12px;
+  border-left: 1px solid rgb(30 44 78 / 25%);
+  white-space: nowrap;
+}
+
+.combined-total-metric output {
+  flex: 0 0 46px;
+  min-width: 46px;
+  min-height: 32px;
+  font-size: 1.1rem;
+}
+
+body.combined-assessment .symptom-table-wrap {
+  overflow-x: auto;
+}
+
+body.combined-assessment .athlete-section {
+  display: block;
+}
+
+body.combined-assessment .symptom-table {
+  min-width: 960px;
+  table-layout: fixed;
+}
+
+body.combined-assessment .symptom-table th:first-child {
+  width: 32%;
+}
+
+body.combined-assessment #primary-rating-heading,
+body.combined-assessment #monitoring-rating-heading {
+  width: 34%;
+}
+
+body.combined-assessment #primary-rating-heading,
+body.combined-assessment .symptom-table tbody td:nth-child(2) {
+  border-right: 2px solid var(--white);
+}
+
+body.combined-assessment #monitoring-rating-heading,
+body.combined-assessment .symptom-table tbody .monitoring-rating-column {
+  border-left-width: 2px;
+}
+
+body.combined-assessment .follow-up {
+  padding-top: 24px;
+}
+
+.examiner-footer {
+  padding-bottom: 12px;
+}
+
+.totals {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.totals[hidden] {
+  display: none;
+}
+
+.totals p {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+}
+
+output {
+  display: inline-grid;
+  flex: 1;
+  min-width: 90px;
+  max-width: 220px;
+  min-height: 46px;
+  place-items: center;
+  color: var(--purple);
+  font-size: 1.3rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 0 22px 18px;
+}
+
+button {
+  padding: 10px 18px;
+  border: 2px solid var(--purple);
+  border-radius: 4px;
+  background: var(--white);
+  color: var(--purple);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+button:hover:not(:disabled) {
+  background: var(--purple);
+  color: var(--white);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.history-button {
+  display: grid;
+  width: 46px;
+  padding-inline: 0;
+  place-items: center;
+  font-size: 1.35rem;
+}
+
+.print-orientation {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.print-orientation select {
+  min-height: 42px;
+  padding: 7px 28px 7px 9px;
+  border: 2px solid var(--purple);
+  border-radius: 4px;
+  background: var(--white);
+  color: var(--purple);
+  font: inherit;
+}
+
+.summary-section {
+  margin: 8px 22px 18px;
+  padding: 16px;
+  border: 2px solid var(--purple);
+  background: #f7f8fc;
+}
+
+.summary-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.summary-heading h2,
+.summary-heading p {
+  margin: 0;
+}
+
+.summary-heading h2 {
+  color: var(--purple);
+  font-size: 1.25rem;
+}
+
+.summary-heading p {
+  margin-top: 4px;
+  font-size: 0.95rem;
+}
+
+#summary-text {
+  display: block;
+  min-height: 230px;
+  resize: vertical;
+  line-height: 1.45;
+  white-space: pre-wrap;
+}
+
+.copy-summary-status {
+  min-height: 1.2em;
+  margin: 7px 0 0;
+  color: var(--purple);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.summary-print-content {
+  display: none;
+}
+
+.include-summary-option {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 9px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.include-summary-option input {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--purple);
+}
+
+@media (max-width: 1050px) {
+  .patient-details {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+  }
+
+  .monitoring-settings .period-options .settings-options {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .evaluation-details,
+  .athlete-section,
+  .totals {
+    display: block;
+  }
+
+  .combined-instructions,
+  .combined-totals {
+    grid-template-columns: 1fr;
+  }
+
+  .combined-totals > div {
+    flex-wrap: wrap;
+  }
+
+  .check-label {
+    justify-content: flex-start;
+    margin-bottom: 12px;
+  }
+
+  .athlete-section {
+    padding: 0 14px;
+  }
+
+  .follow-up {
+    padding-top: 24px;
+  }
+}
+
+@media (max-width: 650px) {
+  body {
+    padding: 0;
+  }
+
+  .form-shell {
+    border-width: 0;
+  }
+
+  .title-bar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .patient-details {
+    grid-template-columns: 1fr;
+  }
+
+  .mode-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mode-options-label {
+    grid-column: 1 / -1;
+  }
+
+  .mode-options .combined-mode-option {
+    grid-column: 1 / -1;
+  }
+
+  .settings-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .diagnostic-settings .settings-options,
+  .monitoring-settings .period-options .settings-options,
+  .monitoring-settings .symptom-context-options .settings-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .examiner-section,
+  .examiner-footer {
+    padding-inline: 12px;
+  }
+
+  .symptom-table-wrap {
+    overflow-x: auto;
+  }
+
+  .symptom-table {
+    min-width: 610px;
+  }
+
+  .yes-no-question {
+    grid-template-columns: 1fr 46px 46px;
+  }
+
+  .summary-section {
+    margin-inline: 12px;
+  }
+
+  .summary-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .publication-notice {
+    margin-bottom: 0;
+  }
+
+  .publication-notice span {
+    display: block;
+    height: 0;
+    overflow: hidden;
+  }
+}
+
+@media print {
+  *,
+  *::before,
+  *::after {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .actions,
+  .activity-symptom-hint,
+  .examiner-guidance,
+  .summary-section,
+  .publication-notice {
+    display: none;
+  }
+
+  .post-injury-options {
+    display: flex;
+    align-items: stretch;
+    gap: 4px;
+    margin-top: 8px;
+    padding: 4px;
+  }
+
+  .mode-options,
+  .settings-row {
+    display: flex;
+    flex: 1 1 0;
+    min-width: 0;
+    align-items: center;
+    gap: 4px;
+    margin: 0;
+    padding: 2px 4px;
+  }
+
+  .mode-options {
+    flex-grow: 1.5;
+  }
+
+  .post-injury-options:has(input[name="post-injury-mode"][value="diagnostic"]:checked) .mode-options {
+    display: none;
+  }
+
+  .post-injury-options:has(input[name="post-injury-mode"][value="monitoring"]:checked) .mode-options,
+  .post-injury-options:has(input[name="post-injury-mode"][value="monitoring"]:checked) .mode-options label {
+    flex: 0 0 auto;
+  }
+
+  .diagnostic-settings .period-options {
+    flex-grow: 0.8;
+  }
+
+  .monitoring-settings .period-options,
+  .monitoring-settings .symptom-context-options {
+    flex-grow: 0.9;
+  }
+
+  .assessment-settings-grid,
+  .assessment-settings-panel {
+    display: contents;
+  }
+
+  .mode-options label:not(:has(input:checked)),
+  .settings-options label:not(:has(input:checked)) {
+    display: none;
+  }
+
+  .post-injury-options input[type="radio"] {
+    display: none;
+  }
+
+  .settings-options,
+  .diagnostic-settings .settings-options,
+  .monitoring-settings .period-options .settings-options,
+  .monitoring-settings .symptom-context-options .settings-options {
+    display: flex;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .mode-options label,
+  .settings-options label {
+    min-height: 24px;
+    padding: 2px 4px;
+    font-size: 0.65rem;
+    white-space: nowrap;
+  }
+
+  .mode-options-label,
+  .settings-row-label {
+    flex: 0 0 auto;
+    font-size: 0;
+    white-space: nowrap;
+  }
+
+  .mode-options-label::before,
+  .settings-row-label::before {
+    color: var(--ink);
+    font-size: 0.65rem;
+  }
+
+  .mode-options-label::before {
+    content: "Mode:";
+  }
+
+  .diagnostic-settings .settings-row-label::before {
+    content: "Diagnostic:";
+  }
+
+  .monitoring-settings .period-options .settings-row-label::before {
+    content: "Monitoring:";
+  }
+
+  .monitoring-settings .symptom-context-options .settings-row-label::before {
+    content: "Context:";
+  }
+
+  .post-injury-options:has(input[name="post-injury-mode"][value="monitoring"]:checked)
+    .mode-options label:has(input:checked) {
+    border-color: #365b8c;
+    background: #365b8c;
+  }
+
+  .post-injury-options:has(input[name="post-injury-mode"][value="diagnostic"]:checked)
+    .diagnostic-settings label:has(input:checked) {
+    font-size: 0;
+  }
+
+  .post-injury-options:has(input[name="post-injury-mode"][value="diagnostic"]:checked)
+    .diagnostic-settings label:has(input[value="now"]:checked)::before {
+    content: "Now";
+    font-size: 0.65rem;
+  }
+
+  .post-injury-options:has(input[name="post-injury-mode"][value="diagnostic"]:checked)
+    .diagnostic-settings label:has(input[value="within 24 hours"]:checked)::before {
+    content: "Within 24 hours post-injury";
+    font-size: 0.65rem;
+  }
+
+  .post-injury-options:has(input[name="post-injury-mode"][value="diagnostic"]:checked)
+    .diagnostic-settings label:has(input[value="48 hours"]:checked)::before {
+    content: "Within 48 hours post-injury";
+    font-size: 0.65rem;
+  }
+
+  .post-injury-options:has(input[name="post-injury-mode"][value="diagnostic"]:checked)
+    .diagnostic-settings label:has(input[value="72 hours"]:checked)::before {
+    content: "Within 72 hours post-injury";
+    font-size: 0.65rem;
+  }
+
+  .post-injury-options:has(input[name="post-injury-mode"][value="diagnostic"]:checked)
+    .diagnostic-settings .settings-row-label::before {
+    content: "Diagnostics:";
+  }
+
+  .post-injury-options:has(input[name="post-injury-mode"][value="monitoring"]:checked)
+    .monitoring-settings .period-options .settings-row-label::before {
+    content: "Time period:";
+  }
+
+  #symptom-context-options:has(input[value="not selected"]:checked) {
+    display: none;
+  }
+
+  body.include-summary-print .summary-section {
+    display: block;
+    margin: 12px 0 0;
+    padding: 12px;
+    break-inside: avoid;
+  }
+
+  body.include-summary-print .summary-heading,
+  body.include-summary-print #summary-text,
+  body.include-summary-print .copy-summary-status {
+    display: none;
+  }
+
+  body.include-summary-print .summary-print-content {
+    display: block;
+    margin: 0;
+    color: var(--ink);
+    font: 10pt/1.35 Arial, Helvetica, sans-serif;
+    white-space: pre-wrap;
+  }
+
+  body.print-portrait .follow-up {
+    position: relative;
+    left: auto;
+    width: 82%;
+    margin-inline: auto;
+  }
+
+  .combined-totals {
+    gap: 4px;
+  }
+
+  .combined-totals > div {
+    min-width: 0;
+    gap: 4px;
+    padding: 4px 5px;
+    font-size: 0.65rem;
+  }
+
+  .combined-total-metric {
+    min-width: 0;
+    gap: 2px;
+    padding-left: 4px;
+  }
+
+  .combined-total-metric output {
+    flex: 0 0 24px;
+    min-width: 24px;
+    min-height: 22px;
+    font-size: 0.75rem;
+  }
+
+  body.combined-assessment .post-injury-options .mode-options,
+  body.combined-assessment .post-injury-options .settings-row,
+  body.combined-assessment .post-injury-options .settings-options,
+  body.combined-assessment .post-injury-options .mode-options label {
+    flex: 0 0 auto;
+  }
+
+  body.combined-assessment .diagnostic-settings label:has(input:checked) {
+    font-size: 0;
+  }
+
+  body.combined-assessment .diagnostic-settings label:has(input[value="now"]:checked)::before {
+    content: "Now";
+    font-size: 0.65rem;
+  }
+
+  body.combined-assessment
+    .diagnostic-settings label:has(input[value="within 24 hours"]:checked)::before {
+    content: "Within 24 hours post-injury";
+    font-size: 0.65rem;
+  }
+
+  body.combined-assessment .diagnostic-settings label:has(input[value="48 hours"]:checked)::before {
+    content: "Within 48 hours post-injury";
+    font-size: 0.65rem;
+  }
+
+  body.combined-assessment .diagnostic-settings label:has(input[value="72 hours"]:checked)::before {
+    content: "Within 72 hours post-injury";
+    font-size: 0.65rem;
+  }
+
+  body.combined-assessment .combined-totals > div {
+    gap: 6px;
+    padding: 5px 7px;
+    font-size: 0.76rem;
+  }
+
+  body.combined-assessment .combined-total-metric {
+    flex: 0 0 auto;
+    gap: 4px;
+    padding-left: 6px;
+  }
+
+  body.combined-assessment .combined-total-metric output {
+    flex-basis: 28px;
+    min-width: 28px;
+    min-height: 24px;
+    font-size: 0.85rem;
+  }
+
+  .activity-symptom-toggle {
+    width: 20px;
+    height: 20px;
+    font-size: 0.68rem;
+  }
+
+  body.combined-assessment .symptom-table {
+    min-width: 0;
+  }
+
+  body.combined-assessment .symptom-table th:first-child {
+    width: 30%;
+  }
+
+  body.combined-assessment #primary-rating-heading,
+  body.combined-assessment #monitoring-rating-heading {
+    width: 35%;
+  }
+
+  body.combined-assessment .ratings {
+    min-width: 0;
+  }
+
+  body.combined-assessment .rating-label {
+    min-height: 30px;
+    font-size: 0.9rem;
+  }
+}

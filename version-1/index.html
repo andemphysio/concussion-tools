@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="CISG-approved SCAT6 symptoms-list adaptation, Version 1.5." />
+    <title>SCAT6 Symptoms List 1.5</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style id="print-page-style">@page { size: portrait; margin: 15mm 10mm; }</style>
+  </head>
+  <body>
+    <main class="form-shell">
+      <header class="title-bar">
+        <h1>Modified SCAT-6 Symptoms List</h1>
+        <span class="version-label">Version 1.5</span>
+      </header>
+
+      <form id="symptom-form">
+        <section class="examiner-section">
+          <div class="patient-details">
+            <label class="patient-name">
+              <span>Patient name / Identifier</span>
+              <input type="text" name="patient-name" autocomplete="name" />
+            </label>
+            <label>
+              <span>Injury date:</span>
+              <input type="date" id="injury-date" name="injury-date" />
+            </label>
+            <label>
+              <span>Date:</span>
+              <input type="date" id="completion-date" name="completion-date" />
+            </label>
+            <div class="days-elapsed">
+              <span>Days since injury:</span>
+              <output id="days-since-injury" aria-live="polite">—</output>
+            </div>
+          </div>
+          <p id="date-message" class="date-message" aria-live="polite"></p>
+
+          <div class="evaluation-details">
+            <label class="check-label">
+              <span>Baseline:</span>
+              <input type="radio" name="evaluation-type" value="baseline" />
+            </label>
+            <label class="check-label">
+              <span>Suspected/Post-injury:</span>
+              <input type="radio" name="evaluation-type" value="post-injury" />
+            </label>
+          </div>
+
+          <div class="evaluation-instructions" aria-live="polite">
+            <p id="baseline-instruction" class="instruction" hidden>
+              <strong>Baseline: Say</strong>
+              <em>“Please rate your symptoms below based on how you <u>typically</u> feel with “1” representing a very mild symptom and “6” representing a severe symptom.”</em>
+            </p>
+            <p id="post-injury-instruction" class="instruction" hidden>
+              <strong>Suspected/Post-injury: Say</strong>
+              <em>“Please rate your symptoms below based on how you feel now with “1” representing a very mild symptom and “6” representing a severe symptom.”</em>
+            </p>
+          </div>
+        </section>
+
+        <h2 class="handover">PLEASE HAND THE FORM TO THE ATHLETE</h2>
+
+        <section class="athlete-section">
+          <div class="symptom-table-wrap">
+            <table class="symptom-table">
+              <thead>
+                <tr>
+                  <th>Symptom</th>
+                  <th>Rating</th>
+                </tr>
+              </thead>
+              <tbody id="symptom-rows"></tbody>
+            </table>
+          </div>
+
+          <aside class="follow-up">
+            <fieldset class="yes-no-question">
+              <legend>Do your symptoms get worse with physical activity?</legend>
+              <label><input type="radio" name="physical-activity" value="yes" /> Y</label>
+              <label><input type="radio" name="physical-activity" value="no" /> N</label>
+            </fieldset>
+
+            <fieldset class="yes-no-question">
+              <legend>Do your symptoms get worse with mental activity?</legend>
+              <label><input type="radio" name="mental-activity" value="yes" /> Y</label>
+              <label><input type="radio" name="mental-activity" value="no" /> N</label>
+            </fieldset>
+
+            <label class="text-question">
+              <span>If 100% is feeling perfectly normal, what percent of normal do you feel?</span>
+              <div class="percent-input">
+                <input type="number" name="percent-normal" min="0" max="100" aria-label="Percent of normal" />
+                <span>%</span>
+              </div>
+            </label>
+
+            <label class="text-question">
+              <span>If not 100%, why?</span>
+              <textarea name="not-normal-reason" aria-label="Reason you do not feel 100 percent normal"></textarea>
+            </label>
+          </aside>
+        </section>
+
+        <h2 class="handover bottom-handover">PLEASE HAND THE FORM BACK TO THE EXAMINER</h2>
+
+        <section class="examiner-footer">
+          <p class="examiner-guidance">
+            Once the athlete has completed answering all symptom items, it may be useful for the clinician
+            to revisit items that were endorsed positively to gather more detail about each symptom.
+          </p>
+          <div class="totals">
+            <p>Total number of symptoms: <output id="symptom-count">0</output> <span>of 22</span></p>
+            <p>Symptom severity score: <output id="severity-score">0</output> <span>of 132</span></p>
+          </div>
+        </section>
+
+        <section class="summary-section">
+          <div class="summary-heading">
+            <div>
+              <h2>Key findings summary</h2>
+              <p>Live summary for copying into clinical notes.</p>
+            </div>
+            <button type="button" id="copy-summary-button">Copy summary</button>
+          </div>
+          <textarea id="summary-text" readonly aria-label="Key findings summary"></textarea>
+          <p id="copy-summary-status" class="copy-summary-status" aria-live="polite"></p>
+          <pre id="summary-print-content" class="summary-print-content" aria-hidden="true"></pre>
+        </section>
+
+        <div class="actions">
+          <button type="button" id="undo-button" class="history-button" aria-label="Undo" title="Undo" disabled>
+            <span aria-hidden="true">↶</span>
+          </button>
+          <button type="button" id="redo-button" class="history-button" aria-label="Redo" title="Redo" disabled>
+            <span aria-hidden="true">↷</span>
+          </button>
+          <button type="reset">Clear form</button>
+          <label class="print-orientation">
+            <span>Print orientation</span>
+            <select id="print-orientation" aria-label="Print orientation">
+              <option value="portrait" selected>Portrait</option>
+              <option value="landscape">Landscape</option>
+            </select>
+          </label>
+          <label class="include-summary-option">
+            <input type="checkbox" id="include-summary-print" />
+            <span>Include summary in print / save</span>
+          </label>
+          <button type="button" id="print-button">Save / Print</button>
+        </div>
+      </form>
+    </main>
+
+    <footer class="publication-notice">
+      <p>
+        <a href="https://www.concussioninsportgroup.com/" target="_blank" rel="noopener noreferrer">CISG</a>-approved
+        SCAT6™ symptoms-list adaptations
+        <span aria-hidden="true">|</span>
+        By
+        <a
+          href="https://uk.linkedin.com/in/andrea-de-marchi-777423305"
+          target="_blank"
+          rel="noopener noreferrer"
+        >A De Marchi</a>
+        <span aria-hidden="true">|</span>
+        <a
+          href="https://github.com/andemphysio/concussion-tools"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Code</a>
+        open source
+        <a
+          href="https://github.com/andemphysio/concussion-tools/blob/main/LICENSE"
+          target="_blank"
+          rel="noopener noreferrer"
+        >MIT</a>
+        <span aria-hidden="true">|</span>
+        SCAT6 content is owned by CISG-BMJ
+      </p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
